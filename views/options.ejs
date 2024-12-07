@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://moodle.czu.cz/theme/styles.php/czuclassic4/1729281958_1689096652/all"
+    />
+    <link rel="shortcut icon" href="/imgs/icon.png" type="image/x-icon" />
+    <style>
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-size: 0.9rem;
+      }
+    </style>
+    <% if (language === 'en') { %>
+    <title>CZU Calendar - Transfer schedule to personal calendar</title>
+    <% } else if (language === 'cs') { %>
+    <title>ČZU Kalendář - Přenos rozvrhu do osobního kalendáře</title>
+    <% } %>
+    <style>
+      .login-container {
+        max-width: 500px;
+        margin: auto;
+        padding: 20px;
+      }
+      .custom-image {
+        max-width: 100%;
+        height: auto;
+      }
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-size: 0.9rem;
+      }
+      .con {
+        padding-top: 16vh;
+      }
+      .anone {
+        text-decoration: none !important;
+
+      }
+    </style>
+  </head>
+  <body>
+    <div class="min-vh-75 con">
+      <div class="container d-flex align-items-center">
+        <div class="row justify-content-center w-100">
+          <div
+            class="col-lg-6 col-12 d-flex align-items-center justify-content-center"
+          >
+            <div class="login-container" style="box-shadow: none">
+              <div class="loginform">
+                <div id="loginlogo" class="login-logo">
+                  <a href="/" class="anone"><% if (language === 'en') { %><img
+                    src="/imgs/logoen.png"
+                    class="img-fluid"
+                    alt="czu calendar login logo"
+                  /><% } else if (language === 'cs') { %><img
+                    src="/imgs/logoczech.png"
+                    class="img-fluid"
+                    alt="čzu kalendář login logo"
+                  /><% } %></a>
+                </div>
+                  <form
+                    class="login-form"
+                    action="/fetchSchedule"
+                    method="post"
+                    id="fetchSchedule"
+                  >
+                <div class="input-group input-group-lg py-2">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-lg">Od<span class="text-danger">&nbsp;*</span></span>
+                  </div>
+                  <input type="date" name="start" id="start" class="form-control form-control-lg"/>
+                </div>
+                <div class="input-group input-group-lg py-2">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-lg">Do<span class="text-danger">&nbsp;*</span></span>
+                  </div>
+                  <input type="date" name="end" id="end" class="form-control form-control-lg"/>
+                </div>           
+                    <div class="input-group input-group-lg pt-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-lg">Jazyk<span class="text-danger">&nbsp;*</span></span>
+                      </div>
+                      <select name="language" id="language"
+                      class="form-control form-control-lg">
+                        <option value="1" active>Czech</option>
+                        <option value="2">English</option>
+                      </select>
+                    </div>
+                    <hr>
+                    <div class="input-group input-group-lg pb-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-lg">Připomenutí</span>
+                      </div>
+                      <input type="number" name="numberof" id="numberof"
+                      class="form-control form-control-lg" value="15" />
+                      <select name="language" id="language"
+                      class="form-control form-control-lg">
+                        <option value="m" active>Minutes</option>
+                        <option value="d">Days</option>
+                        <option value="h">Hours</option>
+                        <option value="s">Seconds</option>
+                      </select>
+                    </div>
+                    <div class="input-group input-group-lg pb-1">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" disabled>
+                        <label class="form-check-label" for="flexCheckCheckedDisabled">
+                          <h5>Zahrnout termíny ze systému Moodle</h5>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="login-form-submit form-group">
+                      <button
+                        class="btn btn-primary btn-lg"
+                        type="submit"
+                        id="loginbtn"
+                      >
+                        <% if (language === 'en') { %>Get Calendar<% } else if
+                        (language === 'cs') { %>Získat Kalendář<% } %>
+                      </button>
+                    </div>
+                  </form>
+                </th>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center"
+          >
+            <img
+              src="/imgs/undraw_online_calendar_re_wk3t.svg"
+              alt="Custom image for czu-cal"
+              class="custom-image"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="min-vh-25">
+      <p>
+        <% if (language === 'en') { %>Made with ❤️ by<% } else if (language ===
+        'cs') { %>Vyrobeno s ❤️ od<% } %>
+        <a href="https://github.com/4k1k01" target="_blank">akiko</a>
+      </p>
+    </footer>
+    <script>
+      const today = new Date();
+      const formattedDate = today.toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+    
+      const endDate = new Date(today.getFullYear(), 11, 31).toISOString().split('T')[0]; // Get December 31st of the current year
+    
+      document.getElementById('start').value = formattedDate; // Set the start date input value
+      document.getElementById('end').value = endDate; // Set the end date input value
+    </script>    
+  </body>
+</html>

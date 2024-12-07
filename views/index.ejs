@@ -19,7 +19,11 @@
         font-size: 0.9rem;
       }
     </style>
-    <title>CZU Calendar</title>
+    <% if (language === 'en') { %>
+    <title>CZU Calendar - Transfer schedule to personal calendar</title>
+    <% } else if (language === 'cs') { %>
+    <title>ČZU Kalendář - Přenos rozvrhu do osobního kalendáře</title>
+    <% } %>
     <style>
       .login-container {
         max-width: 500px;
@@ -52,56 +56,58 @@
           >
             <div class="login-container" style="box-shadow: none">
               <div class="loginform">
-                <div id="loginlogo" class="login-logo">
-                  <img
-                    src="/imgs/CZU_moodle4_logo_svzel.png"
+                <a href="/" class="anone"><div id="loginlogo" class="login-logo">
+                  <% if (language === 'en') { %><img
+                    src="/imgs/logoen.png"
                     class="img-fluid"
-                    alt="czu-cal login logo"
-                  />
-                </div>
-                <!--<div class="alert alert-danger">
-                Neplatné přihlášení, zkuste znovu
-              </div>-->
-                <form
-                  class="login-form"
-                  action="https://moodle.czu.cz/login/index.php"
-                  method="post"
-                  id="login"
-                >
-                  <div class="login-form-username form-group">
-                    <label for="username" class="sr-only"
-                      >Uživatelské jméno</label
-                    >
-                    <input
-                      type="text"
-                      name="username"
-                      id="username"
-                      class="form-control form-control-lg"
-                      placeholder="Uživatelské jméno"
-                      autocomplete="username"
-                    />
+                    alt="czu calendar login logo"
+                  /><% } else if (language === 'cs') { %><img
+                    src="/imgs/logoczech.png"
+                    class="img-fluid"
+                    alt="čzu kalendář login logo"
+                  /><% } %>
+                </div></a>
+                  <% if (error) { %><% if (language === 'en') { %>
+                  <div class="alert alert-danger">
+                    Invalid login, please try again
                   </div>
-                  <div class="login-form-password form-group">
-                    <label for="password" class="sr-only">Heslo</label>
-                    <input
-                      type="password"
-                      name="password"
-                      id="password"
-                      class="form-control form-control-lg"
-                      placeholder="Heslo"
-                      autocomplete="current-password"
-                    />
+                  <% } else if (language === 'cs') { %>
+                  <div class="alert alert-danger">
+                    Neplatné přihlášení, zkuste znovu
                   </div>
-                  <div class="login-form-submit form-group">
-                    <button
-                      class="btn btn-primary btn-lg"
-                      type="submit"
-                      id="loginbtn"
-                    >
-                      Přihlášení
-                    </button>
-                  </div>
-                </form>
+                  <% } %><% } %>
+                  <form
+                    class="login-form"
+                    action="/auth"
+                    method="post"
+                    id="login"
+                  >
+                    <div class="login-form-username form-group">
+                      <input type="text" name="username" id="username"
+                      class="form-control form-control-lg" placeholder=<% if
+                      (language === 'en') { %>"Username"<% } else if (language
+                      === 'cs') { %>"Uživatelské jméno"<% } %>
+                      autocomplete="username" />
+                    </div>
+                    <div class="login-form-password form-group">
+                      <input type="password" name="password" id="password"
+                      class="form-control form-control-lg" placeholder=<% if
+                      (language === 'en') { %>"Password"<% } else if (language
+                      === 'cs') { %>"Heslo"<% } %>
+                      autocomplete="current-password" />
+                    </div>
+                    <div class="login-form-submit form-group">
+                      <button
+                        class="btn btn-primary btn-lg"
+                        type="submit"
+                        id="loginbtn"
+                      >
+                        <% if (language === 'en') { %>Login<% } else if
+                        (language === 'cs') { %>Přihlášení<% } %>
+                      </button>
+                    </div>
+                  </form>
+                </th>
               </div>
             </div>
           </div>
@@ -119,7 +125,8 @@
     </div>
     <footer class="min-vh-25">
       <p>
-        Made with ❤️ by
+        <% if (language === 'en') { %>Made with ❤️ by<% } else if (language ===
+        'cs') { %>Vyrobeno s ❤️ od<% } %>
         <a href="https://github.com/4k1k01" target="_blank">akiko</a>
       </p>
     </footer>

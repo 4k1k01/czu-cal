@@ -10,9 +10,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "accept-language-parser": "^1.5.0",
     "czu-lib": "^1.0.1",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
+    "express-session": "^1.18.1",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
