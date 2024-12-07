@@ -6,12 +6,21 @@ const db = require("./src/database");
 const app = express();
 const PORT = 3000;
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static('public'));
 
-app.use(express.json());
+app.set('view engine', 'ejs');
+app.set('views', './views');
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.render('index', { title: 'Home Page', user: 'John Doe' });
+});
+
+app.get("/fetchSchedule", (req, res) => {
+  
+});
+
+app.get("/", (req, res) => {
+  
 });
 
 app.listen(PORT, () => {

@@ -8,7 +8,17 @@
       type="text/css"
       href="https://moodle.czu.cz/theme/styles.php/czuclassic4/1729281958_1689096652/all"
     />
-    <link rel="shortcut icon" href="./imgs/icon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="/imgs/icon.png" type="image/x-icon" />
+    <style>
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-size: 0.9rem;
+      }
+    </style>
     <title>CZU Calendar</title>
     <style>
       .login-container {
@@ -21,14 +31,20 @@
         height: auto;
       }
       footer {
-        margin-top: 20px;
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
         text-align: center;
         font-size: 0.9rem;
+      }
+      .con {
+        padding-top: 16vh;
       }
     </style>
   </head>
   <body>
-    <div class="min-vh-100 pt-5">
+    <div class="min-vh-75 con">
       <div class="container d-flex align-items-center">
         <div class="row justify-content-center w-100">
           <div
@@ -38,7 +54,7 @@
               <div class="loginform">
                 <div id="loginlogo" class="login-logo">
                   <img
-                    src="./imgs/CZU_moodle4_logo_svzel.png"
+                    src="/imgs/CZU_moodle4_logo_svzel.png"
                     class="img-fluid"
                     alt="czu-cal login logo"
                   />
@@ -93,19 +109,19 @@
             class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center"
           >
             <img
-              src="./imgs/Online calendar-rafiki.svg"
+              src="/imgs/Online calendar-rafiki.svg"
               alt="Custom image for czu-cal"
               class="custom-image"
             />
           </div>
         </div>
       </div>
-      <footer>
-        <p>
-          Made with ❤️ by
-          <a href="https://github.com/4k1k01" target="_blank">akiko</a>
-        </p>
-      </footer>
     </div>
+    <footer class="min-vh-25">
+      <p>
+        Made with ❤️ by
+        <a href="https://github.com/4k1k01" target="_blank">akiko</a>
+      </p>
+    </footer>
   </body>
 </html>
