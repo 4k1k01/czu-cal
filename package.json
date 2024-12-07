@@ -11,11 +11,10 @@
   "description": "",
   "dependencies": {
     "accept-language-parser": "^1.5.0",
-    "czu-lib": "^1.0.1",
+    "czu-lib": "^1.0.2",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
-    "express-session": "^1.18.1",
-    "sqlite3": "^5.1.7"
+    "express-session": "^1.18.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"

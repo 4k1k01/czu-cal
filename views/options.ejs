@@ -77,6 +77,8 @@
                     method="post"
                     id="fetchSchedule"
                   >
+                  <input type="hidden" name="cookies" value="<%= cookies %>" />
+                  <input type="hidden" name="username" value="<%= username %>" />
                 <div class="input-group input-group-lg py-2">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-lg"><% if (language === 'en') { %>From<% } else if (language === 'cs') { %>Od<% } %><span class="text-danger">&nbsp;*</span></span>
@@ -95,7 +97,7 @@
                       </div>
                       <select name="language" id="language"
                       class="form-control form-control-lg">
-                        <option value="cs" active><% if (language === 'en') { %>Czech<% } else if (language === 'cs') { %>Čeština<% } %></option>
+                        <option value="cz" active><% if (language === 'en') { %>Czech<% } else if (language === 'cs') { %>Čeština<% } %></option>
                         <option value="en"><% if (language === 'en') { %>English<% } else if (language === 'cs') { %>Angličtina<% } %></option>
                       </select>
                     </div>
@@ -105,23 +107,23 @@
                         <span class="input-group-text" id="inputGroup-sizing-lg"><% if (language === 'en') { %>Reminder<% } else if (language === 'cs') { %>Připomenutí<% } %></span>
                       </div>
                       <input type="number" name="numberof" id="numberof"
-                      class="form-control form-control-lg" value="15" />
-                      <select name="language" id="language"
+                      class="form-control form-control-lg" value="1" />
+                      <select name="reminderUnit" id="reminderUnit"
                       class="form-control form-control-lg">
-                      <% if (language === 'en') { %><option value="m" active>Minutes</option>
-                        <option value="d">Days</option>
-                        <option value="h">Hours</option>
-                        <option value="s">Seconds</option><% } else if (language === 'cs') { %><option value="m" active>Minut</option>
-                        <option value="d">Dnů</option>
-                        <option value="h">Hodin</option>
-                        <option value="s">Sekund</option><% } %>
+                      <% if (language === 'en') { %><option value="M" active>Minutes</option>
+                        <option value="D">Days</option>
+                        <option value="H">Hours</option>
+                        <option value="S">Seconds</option><% } else if (language === 'cs') { %><option value="M" active>Minut</option>
+                        <option value="D">Dnů</option>
+                        <option value="H">Hodin</option>
+                        <option value="S">Sekund</option><% } %>
                       </select>
                     </div>
                     <div class="input-group input-group-lg pb-1">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" disabled>
-                        <label class="form-check-label" for="flexCheckCheckedDisabled">
-                          <h5><% if (language === 'en') { %>Include deadlines from Moodle<% } else if (language === 'cs') { %>Zahrnout termíny ze systému Moodle<% } %></h5>
+                        <input class="form-check-input" type="checkbox" value="on" id="includeDeadlines" name="includeDeadlines" disabled />
+                        <label class="form-check-label" for="includeDeadlines">
+                          <h5><% if (language === 'en') { %>Include deadlines from <% } else if (language === 'cs') { %>Zahrnout termíny ze systému <% } %><span class="text-primary">Moodle</span></h5>
                         </label>
                       </div>
                     </div>

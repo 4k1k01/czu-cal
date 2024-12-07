@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://moodle.czu.cz/theme/styles.php/czuclassic4/1729281958_1689096652/all"
+    />
+    <link rel="shortcut icon" href="/imgs/icon.png" type="image/x-icon" />
+    <style>
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-size: 0.9rem;
+      }
+    </style>
+    <% if (language === 'en') { %>
+    <title>CZU Calendar - Transfer schedule to personal calendar</title>
+    <% } else if (language === 'cs') { %>
+    <title>ČZU Kalendář - Přenos rozvrhu do osobního kalendáře</title>
+    <% } %>
+    <style>
+      .login-container {
+        max-width: 500px;
+        margin: auto;
+        padding: 20px;
+      }
+      .custom-image {
+        max-width: 100%;
+        height: auto;
+      }
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-size: 0.9rem;
+      }
+      .con {
+        padding-top: 16vh;
+      }
+      .anone {
+        text-decoration: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="min-vh-75 con">
+      <div class="container d-flex align-items-center">
+        <div class="row justify-content-center w-100">
+          <div
+            class="col-lg-6 col-12 d-flex align-items-center justify-content-center"
+          >
+            <div class="login-container" style="box-shadow: none">
+              <div class="loginform">
+                <div id="loginlogo" class="login-logo">
+                  <a href="/" class="anone">
+                    <% if (language === 'en') { %>
+                    <img
+                      src="/imgs/logoen.png"
+                      class="img-fluid"
+                      alt="czu calendar login logo"
+                    />
+                    <% } else if (language === 'cs') { %>
+                    <img
+                      src="/imgs/logoczech.png"
+                      class="img-fluid"
+                      alt="čzu kalendář login logo"
+                    />
+                    <% } %>
+                  </a>
+                </div>
+                <div
+                  class="login-form-submit form-group d-flex justify-content-center align-items-center"
+                >
+                  <button class="btn btn-primary btn-lg" id="downloadBtn">
+                    <% if (language === 'en') { %>Download<% } else if (language
+                    === 'cs') { %>Stáhnout<% } %>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center"
+          >
+            <img
+              src="/imgs/Download-rafiki.svg"
+              alt="Custom image for czu-cal"
+              class="custom-image"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="min-vh-25">
+      <p>
+        <% if (language === 'en') { %>Made with ❤️ by<% } else if (language ===
+        'cs') { %>Vyrobeno s ❤️ od<% } %>
+        <a href="https://github.com/4k1k01" target="_blank">akiko</a>
+      </p>
+    </footer>
+    <script>
+      document.getElementById('downloadBtn').addEventListener('click', () => {
+          const finalTextICS = <%- JSON.stringify(finalTextICS) %>;
+          const blob = new Blob([finalTextICS], { type: 'text/calendar' });
+
+          const url = URL.createObjectURL(blob);
+
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = '<%- username %>.ics';
+          a.click();
+          URL.revokeObjectURL(url);
+      });
+    </script>
+  </body>
+</html>

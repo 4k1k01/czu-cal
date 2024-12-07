@@ -1,9 +1,7 @@
 const express = require("express");
-const sqlite3 = require("sqlite3").verbose();
 const czu = require("czu-lib");
-const path = require("path");
 const acceptLanguage = require('accept-language-parser');
-const db = require("./src/database");
+const ics = require("./src/makeics");
 const session = require('express-session');
 
 const app = express();
@@ -60,8 +58,7 @@ app.post("/auth", async (req, res) => {
       return res.redirect('/');
     } else {
       const cookies = await czu.login(username, password);
-      const cookieString = cookies.cookies.map(cookie => `${cookie.key}=${cookie.value}`).join('; ');
-      if (cookieString.includes('UISAuth=')) {
+      if (cookies.includes('UISAuth=')) {
         req.session.data = { cookies: cookies, username: username };
         return res.redirect('/options');
       } else {
@@ -79,6 +76,64 @@ app.get("/options", async (req, res) => {
   const { cookies, username } = req.session.data || {};
   if (!cookies || !username) return res.redirect('/');
   res.render('options', { language: req.language, cookies, username });
+});
+
+app.post("/fetchSchedule", async (req, res) => {
+  let { start, end, language, numberof, reminderUnit, includeDeadlines, cookies, username } = req.body;
+
+  if (!start || !end || !language) {
+    return res.status(400).json({ error: "All fields are required." });
+  }
+
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+
+  if (isNaN(startDate) || isNaN(endDate)) {
+    return res.status(400).json({ error: "Invalid date format." });
+  }
+
+  if (startDate > endDate) {
+    return res.status(400).json({ error: "'From' date cannot be later than 'To' date." });
+  }
+
+  const formattedStartDate = `${new Date(start).getDate().toString().padStart(2, '0')}.${(new Date(start).getMonth() + 1).toString().padStart(2, '0')}.${new Date(start).getFullYear()}`;
+  const formattedEndDate = `${new Date(end).getDate().toString().padStart(2, '0')}.${(new Date(start).getMonth() + 1).toString().padStart(2, '0')}.${new Date(start).getFullYear()}`;
+
+  if (language !== 'en' && language !== 'cz') {
+    return res.status(400).json({ error: "Invalid language selection." });
+  }
+
+  if (!username || !cookies || !cookies.includes('UISAuth=')) {
+    req.session.data = { error: 'Invalid credentials' };
+    res.redirect('/');
+  }
+
+  const schedule = await czu.fetchSchedule(
+    cookies,
+    formattedStartDate,
+    formattedEndDate,
+    language,
+  );
+
+  const validReminderUnits = ["M", "D", "H", "S"];
+  if (!validReminderUnits.includes(reminderUnit)) {
+    return res.status(400).json({ error: "Invalid reminder unit selection." });
+  }
+
+  includeDeadlines = includeDeadlines === "on";
+
+  const finalTextICS = await ics(schedule, numberof, reminderUnit);
+
+  req.session.data = { finalTextICS, username };
+  return res.redirect('/download');
+});
+
+app.get("/download", async (req, res) => {
+  const { finalTextICS, username } = req.session.data || {};
+  if (!finalTextICS || !username) {
+    return res.redirect('/');
+  }
+  res.render('download', { language: req.language, finalTextICS, username });
 });
 
 app.listen(PORT, () => {
