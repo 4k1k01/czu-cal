@@ -17,7 +17,7 @@ CZU Calendar is a web-based platform designed to help students at the Czech Univ
 ## How to Use
 
 1. **Login**  
-   Navigate to the [website](example.com) and log in using your ČZU UIS credentials.
+   Navigate to the [website](https://czucal-a1hgwkri.b4a.run/) and log in using your ČZU UIS credentials.
 
 2. **Customize Your Calendar**  
    Select language, date range and more.
