@@ -27,4 +27,4 @@ CZU Calendar is a web-based platform designed to help students at the Czech Univ
 
 ## Goals
 
-- Option to also add Moodle deadlines
+- Option to add Moodle deadlines
