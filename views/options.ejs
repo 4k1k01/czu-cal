@@ -163,12 +163,12 @@
     </footer>
     <script>
       const today = new Date();
-      const formattedDate = today.toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+      const formattedDate = today.toISOString().split('T')[0];
     
-      const endDate = new Date(today.getFullYear(), 11, 31).toISOString().split('T')[0]; // Get December 31st of the current year
+      const endDate = new Date(today.getFullYear(), 11, 31).toISOString().split('T')[0];
     
-      document.getElementById('start').value = formattedDate; // Set the start date input value
-      document.getElementById('end').value = endDate; // Set the end date input value
+      document.getElementById('start').value = formattedDate;
+      document.getElementById('end').value = endDate;
     </script>    
   </body>
 </html>
